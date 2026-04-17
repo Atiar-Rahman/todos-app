@@ -3,13 +3,9 @@ import uuid
 from django.contrib.auth import get_user_model
 
 
-User = get_user_model()
-# Create your models here.
 
 class Todo(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todos')
 
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
@@ -43,8 +39,8 @@ class Todo(models.Model):
         db_table = 'todos'
         ordering = ['-created_at']
         indexes = [
-            models.Index(fields=['user', 'status']),
-            models.Index(fields=['user', 'created_at']),
+            models.Index(fields=['status']),
+            models.Index(fields=['created_at']),
         ]
 
 
